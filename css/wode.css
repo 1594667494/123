@@ -309,133 +309,67 @@ body{
 ul, li, ol {
     list-style: none;
 }
-.category-body {
-    width: 1227px;
-    margin: 0 auto;
-    background: #f5f5f5;
-}
-.goodsList-nav {
+.block{
     width: 100%;
+    height: auto;
     margin: 0 auto;
 }
-.goodsList-nav .title {
+.block .flow-nav{
+    width: 100%;
+    height: 100px;
+    margin: 0 auto;
+}
+.flow-nav .leftdiv{
     float: left;
-    height: 60px;
-    line-height: 60px;
-    color: #7e7f84;
-    font-size: 16px;
-    text-indent: 0;
-    text-align: center;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 0 20px;
+    width: 15%;
+    height: 100%;
+}
+.flow-nav .leftdiv .lefttext{
+    height: 100px;
+    line-height: 100px;
+    font-size: 28px;
+    color: #000000;
+}
+.flow-nav .centerdiv{
+    float: left;
+    width: 70%;
+    height: 100px;
+}
+.flow-nav .splitter{
+    float: left;
     position: relative;
+    width: 35%;
+    height: 1px;
+    top: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
 }
-.goodsList-nav .title:nth-child(1):after{
-    content: "";
-    width: 1px;
-    height: 12px;
-    background-color: #7e7f84;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.nav-img{
-    width: 100%;
-    height: 510px;
-    display: flex;
-    justify-content: space-between;
-}
-.nav-img a{
-    text-decoration: none;
-}
-.nav-img .nav-left{
+.flow-nav .statediv{
     float: left;
-    width: 389px;
-    height: 510px;
-    background-color: #ffffff
-    
+    height: 100%;
 }
-.nav-img .nav-left:hover{
-     box-shadow: 10px 10px 20px #ccc; 
-     transform: translateY(-3px);
-     transition: .5s;
-}
-.nav-img .nav-left #oneone{
-    width: 389px;
-    height: 278px;
-
-}
-.nav-img .nav-left .one{
-    justify-content: center;
-    display: flex;
-}
-.nav-img .nav-left .one span{
+.flow-nav .statediv .centertext{
+    height: 100px;
+    line-height: 100px;
+    font-size: 28px;
+    color: rgba(0, 0, 0, 0.2);
     text-align: center;
+}
+.flow-nav .rightdiv{
+    float: left;
+    width: 15%;
+    height: 100%;
+}
+.flow-nav .rightdiv .righttext{
+    height: 100px;
+    line-height: 100px;
+    font-size: 28px;
+    color: rgba(0, 0, 0, 0.2);
+    text-align: right;
+}
+.flowBox {
+    background: #FFFFFF;
     font-size: 16px;
-    height: 24px;
-    line-height: 24px;
-    font-size: 23px;
     color: #4d4d4d;
-    margin-top: 5px;
-}
-.nav-img .nav-left .two{
-    justify-content: center;
-    display: flex;
-    margin-top: 20px;
-}
-.nav-img .nav-left .two span{
-    float: left;
-    text-align: center;
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
-    color: #7e7f84;
-    border: solid 1px #7e7f84;
-    border-radius: 2px;
-    border-radius: 2px;
-    margin-right: 10px;
-    padding: 0 10px;
-}
-.nav-img .nav-left .three{
-    text-align: center;
-    font-size: 12px;
-    color: #7e7f84;
-    margin-top: 14px;
-}
-.nav-img .nav-left .four{
-    text-align: center;
-    color: #eb0028;
-    height: 18px;
-    font-size: 18px;
-    line-height: 18px;
-    margin-top: 17px;
-}
-.nav-img .nav-left .four s{
-    color: #7e7f84;
-    font-size: 14px;
-}
-
-.nav-img .nav-left #onetwo{
-    width: 389px;
-    height: 278px;
-    display: none;
-    
-}
-.nav-img .nav-left .five{
-    width: 150px;
-    height: 50px;
-    background-color: #EB0028;
-    margin-top: 30px;
-    position: relative;
-    left: 30%;
-    font-size: 18px;
-    text-align: center;
-    color: #fff;
-    line-height: 45px;
-    cursor: pointer;
 }
 .foot-body{
     width: 1227px;
