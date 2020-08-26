@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title><style>* {
+        margin: 0px;
+        padding: 0px;
+      }
+      #ul1 li {
+        list-style: none;
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        margin: 10px;
+        float: left;
+      }
+      #ul1 li img {
+        width: 100%;
+        height: 100%;
+      }
+      #ul1 {
+        width: 366px;
+        height: 366px;
+        margin: 100px auto;
+        border: 1px solid black;
+        position: relative;
+      }</style><script src="startMove.js"></script><script>window.onload = function () {
+        var oUl = document.getElementById("ul1");
+        var aLis = oUl.getElementsByTagName("li");
+        var currenIndex = 2;
+
+        /*
+          布局的时候，相对定位方便一些
+          放大的时候，必须使用绝对定位
+
+          1、相对定位 转成 绝对定位
+          2、从中心放大
+        */
+        for (var i = 0; i < aLis.length; i++) {
+          aLis[i].style.left = aLis[i].offsetLeft + "px";
+          aLis[i].style.top = aLis[i].offsetTop + "px";
+        }
+        for (var i = 0; i < aLis.length; i++) {
+          aLis[i].style.position = "absolute";
+          aLis[i].style.margin = "0px";
+          var oImg = document.createElement("img");
+          oImg.src = "img/" + (i + 1) + ".jpg";
+          aLis[i].appendChild(oImg);
+        }
+
+        /*
+          mouseenter
+          mouseleave
+
+
+          这里的事件委托，为了让经过子节点img触发移入和移出
+          只能用 mouseover mouseout
+        */
+        oUl.onmouseover = function (ev) {
+          var e = ev || window.event;
+          var target = e.target || window.event.srcElement;
+          if (target.nodeName.toLowerCase() == "img") {
+            target.parentNode.style.zIndex = currenIndex++;
+            startMove(target.parentNode, {
+              width: 110,
+              height: 110,
+              marginLeft: -5,
+              marginTop: -5,
+            });
+          }
+        };
+
+        oUl.onmouseout = function (ev) {
+          var e = ev || window.event;
+          var target = e.target || window.event.srcElement;
+          if (target.nodeName.toLowerCase() == "img") {
+            startMove(target.parentNode, {
+              width: 100,
+              height: 100,
+              marginLeft: 0,
+              marginTop: 0,
+            });
+          }
+        };
+      };</script></head><body><!--
+    九宫格布局
+    3*3的布局
+   --><ul id="ul1"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></body></html>

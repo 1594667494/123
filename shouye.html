@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/shouye.css">
+    <title>扫地机器人_智能扫地机器人_拖扫一体机器人-石头科技官网</title>
+    <script src="jquery-1.11.3.js"></script>
+    <script src="startMove.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#oneone').on({
+                mouseover : function(){
+                    $(this).attr('src','images/one.jpg');
+                },
+                mouseout : function(){
+                    $(this).attr('src','images/t7_pro_index-1.jpg');
+                }
+            });
+        });
+        $(document).ready(function(){
+            $('#twoone').on({
+                mouseover : function(){
+                    $(this).attr('src','images/roborock_h6_index-2.jpg');
+                },
+                mouseout : function(){
+                    $(this).attr('src','images/roborock_h6_index-1.jpg');
+                }
+            });
+        });
+        $(document).ready(function(){
+            $('#threeone').on({
+                mouseover : function(){
+                    $(this).attr('src','images/T70-index-2.jpg');
+                },
+                mouseout : function(){
+                    $(this).attr('src','images/T70-index-1.jpg');
+                }
+            });
+        });
+
+        window.onload = function () {
+            const oBanner = document.querySelector(".banner");
+            const oImgBox = document.querySelector(".imgBox");
+            const aBtns = document.querySelectorAll(".pointBox li");
+            let iNow = 1; 
+            let timer = null;
+            let isRuning = false; 
+
+
+            for (let i = 0; i < aBtns.length; i++) {
+            aBtns[i].index = i;
+            aBtns[i].onclick = function () {
+                iNow = this.index + 1;
+                tab();
+                };
+            }
+            
+            oBanner.onmouseenter = function () {
+              clearInterval(timer);
+            };
+            oBanner.onmouseleave = function () {
+              timer = setInterval(function () {
+                if (!isRuning) {
+                  isRuning = true; 
+                } else {
+                  return;
+                }
+                iNow++;
+                tab();
+              }, 2000);
+            };
+            
+            timer = setInterval(function () {
+              if (!isRuning) {
+                isRuning = true;
+              } else {
+                return;
+              }
+              iNow++;
+              tab();
+            }, 2000);
+
+            function tab() {
+              for (let i = 0; i < aBtns.length; i++) {
+                  aBtns[i].className = "";
+              }
+              if (iNow == 9) {
+                  aBtns[0].className = "active";
+              } else if (iNow == 0) {
+                  aBtns[4].className = "active";
+              } else {
+                  aBtns[iNow - 1].className = "active";
+              }
+
+              startMove(oImgBox, { left: -1300 * iNow }, function () {
+                if (iNow == 9) {
+                  iNow = 1;
+                  oImgBox.style.left = "-1300px";
+                } else if (iNow == 0) {
+                  iNow = 4;
+                  oImgBox.style.left = iNow * -1300 + "px";
+                }
+                isRuning = false;
+              });
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            <a href="https://mall.roborock.com/goods.php?id=55"><img style="width: 34px;" src="images/logo.png" alt="石头科技官网logo"></a>
+        </div>
+        <div class="div3">
+          <div class="left-list" id="list">
+            <a href="https://mall.roborock.com/category/36" id="a1"><span>智能清洁电器</span></a>
+            <div class="aaa">
+                <div class="title">
+                    <div class="nav-goodsItems">
+                        <div class="top-title">
+                            <ul class="cat_list">
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T7Pro</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;" class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T7Pro</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/T7PRO-nav.jpg" alt="石头扫地机器人T7Pro" title="石头扫地机器人T7Pro" class="T7">
+                                                <p class="cat-item-text">石头扫地机器人T7Pro</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头手持无线吸尘器H6</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头手持无线吸尘器H6</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/H6-nav.jpg" alt="石头手持无线吸尘器H6" title="石头手持无线吸尘器H6">
+                                                <p class="cat-item-text">石头手持无线吸尘器H6</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T7</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T7</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/T70-nav.jpg" alt="石头扫地机器人T7云石白" title="石头扫地机器人T7云石白">
+                                                <p class="cat-item-text">石头扫地机器人T7云石白</p>
+                                                <img src="images/T71-nav.jpg" alt="石头扫地机器人T7云石金" title="石头扫地机器人T7云石金">
+                                                <p class="cat-item-text">石头扫地机器人T7云石金</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人P5</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人P5</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/P50_nav_img.png" alt="石头扫地机器人P50珍珠白" title="石头扫地机器人P50珍珠白">
+                                                <p class="cat-item-text">石头扫地机器人P50珍珠白</p>
+                                                <img src="images/p55-nav.png" alt="石头扫地机器人P55曜石黑" title="石头扫地机器人P55曜石黑">
+                                                <p class="cat-item-text">石头扫地机器人P55曜石黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T6</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T6</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/tanos_pink.png" alt="石头扫地机器人T6云石金" title="石头扫地机器人T6云石金">
+                                                <p class="cat-item-text">石头扫地机器人T6云石金</p>
+                                                <img src="images/tanos_black.png" alt="石头扫地机器人T6曜石黑" title="石头扫地机器人T6曜石黑">
+                                                <p class="cat-item-text">石头扫地机器人T6曜石黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T4</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T4</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/t4-nav.png" alt="石头扫地机器人T4骑士黑" title="石头扫地机器人T4骑士黑">
+                                                <p class="cat-item-text">石头扫地机器人T4骑士黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">小瓦扫地机器人</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">小瓦扫地机器人</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/sapphire_nav.png" alt="小瓦扫地机器人E20规划版" title="小瓦扫地机器人E20规划版">
+                                                <p class="cat-item-text">小瓦扫地机器人E20规划版</p>
+                                                <img src="images/Sapphire_c_nav.png" alt="小瓦扫地机器人C10青春版" title="小瓦扫地机器人C10青春版">
+                                                <p class="cat-item-text">小瓦扫地机器人C10青春版</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">米家扫地机器人</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">米家扫地机器人</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/1_thumb_G_1510983679292.png" alt="米家扫地机器人" title="米家扫地机器人">
+                                                <p class="cat-item-text">米家扫地机器人</p>
+                                            </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-body">
+                            <div class="right-box">
+                                
+                            </div>
+                        </div>
+                        <div class="other-link"></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/compare.php"><span>产品选购指南</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/category/6"><span>配件</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/helps.php"><span>服务</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/introduction.php"><span>关于石头</span></a>
+          </div>
+        </div>
+        <div class="div4">
+            <div class="box">
+                <div class="user">
+                    <img src="images/user.png" alt="">
+                        <div id="register">
+                            <a href="http://localhost/kewosi/denglv.html"><div class="enter">
+                                <span>登录</span>
+                            </div></a>
+                            <a href="http://localhost/kewosi/zhuce.html"><div class="enroll">
+                                <span>注册</span>
+                            </div></a>
+                        </div>
+                </div>
+                <div class="cart">
+                    <a href="http://127.0.0.1:5501/kewosi/gouwuche.html"><img src="images/cart.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <ul class="imgBox clearFix">
+            <li style="background: url(images/lunbo8.png) center center / auto 100% no-repeat; width: 1300px; height: 500px;"></li>
+            <li style="background: url(images/lunbo1.png) center center / auto 100% no-repeat; width: 1300px; height: 500px;"></li>
+            <li style="background: url(images/lunbo2.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+              <div class="index-banner">
+                  <div class="clearfix" style="margin-bottom: 10px;">
+                    <p class="rubyName" style="color:#fff;font-weight:200;">石头扫地机器人T7Pro 探索版</p>
+                  </div>
+                  <p class="rubyIntro" style="color:#fff;font-weight:200;opacity:1;">AI双目避障&nbsp;聪明扫拖</p>
+                  <p class="rubyAttr" style="color:#fff;opacity: 0.7;word-spacing:-2.0px;">激光建图规划&nbsp;|&nbsp;AI双目避障&nbsp;|&nbsp;297ml恒压电控水箱&nbsp;&nbsp;2500Pa大吸力</p>
+                  <div class="price" style="margin-bottom: 8px;">
+                    <p class="rubyPrice" style="color:#eb0028">3399</p>
+                    <p class="rubyPriceUnit" style="color:#fff">&nbsp;元</p>
+                    <p style="color:#fff;margin:0 0 6px 10px; font-size:16px;">
+                        <s style="font-size:16px;">3899</s>元
+                    </p>
+                  </div>
+                  <div class="btn">
+                    <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即抢购</a>
+                  </div>
+              </div>
+            </li>
+            <li style="background: url(images/lunbo3.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#fff;font-weight:200;">石头手持无线吸尘器H6</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#fff;font-weight:200;opacity:1;">强劲高能&nbsp;轻而有力</p>
+                    <p class="rubyAttr" style="color:#fff;opacity: 0.7;word-spacing:-2.0px;">聚合物超轻电池&nbsp;|&nbsp; 150AW吸力&nbsp;|&nbsp;多锥无损耗OLED显示&nbsp;|&nbsp;落地充电支架</p>
+                    <div class="price" style="margin-bottom: 8px;">
+                      <p class="rubyPrice" style="color:#eb0028">2499</p>
+                      <p class="rubyPriceUnit" style="color:#fff">&nbsp;元</p>
+                      <p style="color:#fff;margin:0 0 6px 10px; font-size:16px;">
+                          <s style="font-size:16px;">2699</s>元
+                      </p>
+                    </div>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即抢购</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo4.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#000;font-weight:200;">石头扫地机器人T70 (云石白)</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#000;font-weight:200;opacity:1;">聪明强劲&nbsp;全面升级</p>
+                    <p class="rubyAttr" style="color:#000;opacity: 0.7;word-spacing:-2.0px;">2500Pa大吸力&nbsp;|&nbsp;297ml恒压电控水箱&nbsp;|&nbsp;多地图管理</p>
+                    <div class="price" style="margin-bottom: 8px;">
+                      <p class="rubyPrice" style="color:#eb0028">2599</p>
+                      <p class="rubyPriceUnit" style="color:#000">&nbsp;元</p>
+                      <p style="color:#000;margin:0 0 6px 10px; font-size:16px;">
+                          <s style="font-size:16px;">2899</s>元
+                      </p>
+                    </div>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即购买</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo5.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#000;font-weight:200;">石头扫地机器人T71 (云石金)</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#000;font-weight:200;opacity:1;">聪明进化&nbsp;深度湿拖</p>
+                    <p class="rubyAttr" style="color:#000;opacity: 0.7;word-spacing:-2.0px;">2500Pa大吸力&nbsp;|&nbsp;297ml恒压电控水箱&nbsp;|&nbsp;多地图管理</p>
+                    <div class="price" style="margin-bottom: 8px;">
+                      <p class="rubyPrice" style="color:#eb0028">2599</p>
+                      <p class="rubyPriceUnit" style="color:#000">&nbsp;元</p>
+                      <p style="color:#000;margin:0 0 6px 10px; font-size:16px;">
+                          <s style="font-size:16px;">2899</s>元
+                      </p>
+                    </div>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即购买</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo6.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#000;font-weight:200;">石头扫地机器人T61 (云石金)</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#000;font-weight:200;opacity:1;">品质与智能&nbsp;全面进化</p>
+                    <p class="rubyAttr" style="color:#000;opacity: 0.7;word-spacing:-2.0px;">精选知名元器件&nbsp;|&nbsp;整机质保2年<br>精心降噪设计&nbsp;|&nbsp; 地图管理3.0&nbsp;|&nbsp;一次性拖布</p>
+                    <div class="price" style="margin-bottom: 8px;">
+                      <p class="rubyPrice" style="color:#eb0028">2199</p>
+                      <p class="rubyPriceUnit" style="color:#000">&nbsp;元</p>
+                      <p style="color:#000;margin:0 0 6px 10px; font-size:16px;">
+                          <s style="font-size:16px;">2799</s>元
+                      </p>
+                    </div>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即购买</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo7.jpg) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#fff;font-weight:200;">石头扫地机器人P55 (曜石黑)</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#fff;font-weight:200;opacity:1;">专注激光先锋科技<br>口碑爆款 性价优选</p>
+                    <p class="rubyAttr" style="color:#fff;opacity: 0.7;word-spacing:-2.0px; padding-top: 25px;">180ml大水箱湿拖&nbsp;|&nbsp;5200mAh大电量&nbsp;|&nbsp; 地图管理3.0</p>
+                    <div class="price" style="margin-bottom: 8px;">
+                      <p class="rubyPrice" style="color:#eb0028">1899</p>
+                      <p class="rubyPriceUnit" style="color:#fff">&nbsp;元</p>
+                      <p style="color:#fff;margin:0 0 6px 10px; font-size:16px;">
+                          <s style="font-size:16px;">2499</s>元
+                      </p>
+                    </div>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即购买</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo8.png) center center / auto 100% no-repeat; width: 1300px; height: 500px;">
+                <div class="index-banner">
+                    <div class="clearfix" style="margin-bottom: 10px;">
+                      <p class="rubyName" style="color:#000;font-weight:200; font-size: 23px;">扫地机器人配件</p>
+                    </div>
+                    <p class="rubyIntro" style="color:#000;font-weight:200;opacity:1; font-size: 15px; padding-top: 15px;">定期更换，让生活更加清新</p>
+                    <p class="rubyAttr" style="color:#000;opacity: 0.7;word-spacing:-2.0px;">主刷 | 边刷 | 滤网</p>
+                    <div class="btn">
+                      <a  class="rubyDetail" href="" style="margin-bottom: 10px;">立即购买</a>
+                    </div>
+                </div>
+            </li>
+            <li style="background: url(images/lunbo1.png) center center / auto 100% no-repeat; width: 1300px; height: 500px;"></li>
+        </ul>
+        <ol class="pointBox">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <div class="nav">
+        <div class="nav-title">
+            <span>智 能 清 洁 电 器</span>
+            <div class="more">
+              <a href="">
+                <span>查 看 更 多</span>
+                <img src="images/more.png" alt="">
+              </a>
+            </div>
+        </div>
+        <div class="nav-img">
+            <a href="http://127.0.0.1:5500/xiangqing.html"><div class="nav-left">
+                <img src="images/t7_pro_index-1.jpg" id="oneone" alt="">
+                <img src="images/one.jpg"  id="onetwo" alt="">
+                <div class="one">
+                    <span>石头扫地机器人T7Pro</span>
+                </div>
+                <div class="two">
+                    <span>激光建图规划</span>
+                    <span>AI双目视觉避障</span>
+                    <span>2500Pa大吸力</span>
+                </div>
+                <div class="three">
+                    <span>AI双目视觉避障 聪明扫拖</span>
+                </div>
+                <div class="four">
+                    <span>￥</span><span>3499</span>
+                    <s><span>￥</span>3899</s>
+                </div>
+            </div></a>
+            <a href="http://127.0.0.1:5500/xiangqing.html"><div class="nav-center">
+                <img src="images/roborock_h6_index-1.jpg" id="twoone" alt="">
+                <img src="images/roborock_h6_index-2.jpg"  id="twotwo" alt="">
+                <div class="one">
+                    <span>石头手持无线吸尘器H6</span>
+                </div>
+                <div class="two">
+                    <span>聚合物超轻电池</span>
+                    <span>150AW吸力</span>
+                    <span>OLED屏</span>
+                    <span>落地充电支架</span>
+                </div>
+                <div class="three">
+                    <span>强劲高能 轻而有力</span>
+                </div>
+                <div class="four">
+                    <span>￥</span><span>2599</span>
+                    <s><span>￥</span>2699</s>
+                </div>
+            </div></a>
+            <a href="http://127.0.0.1:5500/xiangqing.html"><div class="nav-right">
+                <img src="images/T70-index-1.jpg" id="threeone" alt="">
+                <img src="images/T70-index-2.jpg"  id="threetwo" alt="">
+                <div class="one">
+                    <span>石头扫地机器人T7云石白</span>
+                </div>
+                <div class="two">
+                    <span>2500Pa大吸力</span>
+                    <span>297ml恒压电控水箱</span>
+                    <span>多地图管理</span>
+                </div>
+                <div class="three">
+                    <span>聪明强劲 全面升级</span>
+                </div>
+                <div class="four">
+                    <span>￥</span><span>2599</span>
+                    <s><span>￥</span>2899</s>
+                </div>
+            </div></a>
+        </div>
+    </div>
+    <div class="ImageIndex">
+        <div class="bg-div">
+            <div class="right-label">
+                <h3>您好</h3>
+                <p>欢迎来到石头团购</p>
+                <div>
+                    <a href="">查看详情</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accessory">
+        <div class="parts">
+            <div class="fittings">
+                <div class="title">
+                    <div class="title1">配件</div>
+                    <a class="title2" href="">
+                        <div class="moretext">查看更多</div>
+                        <div class="moreImg">
+                            <img src="images/more.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="all-ms">
+                    <a href="http://127.0.0.1:5500/xiangqing.html"><div class="left1">
+                        <div class="img-box">
+                            <img src="images/yicixingtuobu.jpg" alt="">
+                        </div>
+                        <div class="goods-title">石头扫地机器人一次性拖布60片...</div>
+                        <div class="shop_s" style="padding: 0 21px;">
+                            <font style="font-size: 12px;">￥</font><span>99</span>
+                        </div>
+                    </div></a>
+                    <a href="http://127.0.0.1:5500/xiangqing.html"><div class="left2">
+                        <div class="img-box">
+                            <img src="images/11_G_1534305334612.jpg" alt="">
+                        </div>
+                        <div class="goods-title">石头扫地机器人拖布(2块装)</div>
+                        <div class="shop_s" style="padding: 0 21px;">
+                            <font style="font-size: 12px;">￥</font><span>39</span>
+                        </div>
+                    </div></a>
+                    <a href="http://127.0.0.1:5500/xiangqing.html"><div class="right1">
+                        <div class="img-box">
+                            <img src="images/6_G_1509787586946.png" alt="">
+                        </div>
+                        <div class="goods-title">石头扫地机器人拖布(2块装)</div>
+                        <div class="shop_s" style="padding: 0 21px;">
+                            <font style="font-size: 12px;">￥</font><span>49</span>
+                        </div>
+                    </div></a>
+                    <a href="http://127.0.0.1:5500/xiangqing.html"><div class="right2">
+                        <div class="img-box">
+                            <img src="images/2_G_1509787531381.png" alt="">
+                        </div>
+                        <div class="goods-title">石头扫地机器人拖布(2块装)</div>
+                        <div class="shop_s" style="padding: 0 21px;">
+                            <font style="font-size: 12px;">￥</font><span>29</span>
+                        </div>
+                    </div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video">
+        <div class="title">视频</div>
+        <div class="video-display">
+            <div class="left1">
+                <div class="img">
+                    <img src="images/video1.jpg" alt="">
+                    <div class="playbutton"></div>
+                </div>
+                <p class="brief">石头手持无线吸尘器</p>
+                <p class="detail">强劲高能 轻而有力</p>
+            </div>
+            <div class="left2">
+                <div class="img">
+                    <img src="images/video2.jpg" alt="">
+                    <div class="playbutton"></div>
+                </div>
+                <p class="brief">石头扫地机器人T7Pro</p>
+                <p class="detail">AI双目避障，聪明扫拖</p>
+            </div>
+            <div class="right1">
+                <div class="img">
+                    <img src="images/video3.jpg" alt="">
+                    <div class="playbutton"></div>
+                </div>
+                <p class="brief">石头扫地机器人T7</p>
+                <p class="detail">聪明强劲 全面升级</p>
+            </div>
+            <div class="right2">
+                <div class="img">
+                    <img src="images/video4.jpg" alt="">
+                    <div class="playbutton"></div>
+                </div>
+                <p class="brief">石头扫地机器人</p>
+                <p class="detail">智能再升级 扫拖新姿势</p>
+            </div>
+        </div>
+    </div>
+    <div style="width:100%;background-color:#ffffff;">
+        <div class="foot-body">
+            <div class="saleDescription">
+                <div class="policyArea">
+                    <div class="policy">
+                        <div class="margin:0 auto">
+                            <img src="images/official.png" alt="官方直销">
+                            <span style="float:left">官方直销</span>
+                        </div>
+                    </div>
+                    <div class="policy">
+                        <div class="margin:0 auto">
+                            <img src="images/7days.png" alt="7天无理由退货">
+                            <span style="float:left">7天无理由退货</span>
+                        </div>
+                    </div>
+                    <div class="policy">
+                        <div class="margin:0 auto">
+                            <img src="images/deliver.png" alt="满99元包邮">
+                            <span style="float:left">满99元包邮</span>
+                        </div>
+                    </div>
+                    <div class="policy">
+                        <div class="margin:0 auto">
+                            <img src="images/quality.png" alt="1年质保">
+                            <span style="float:left">整机质保</span>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="foot-help">
+                <div class="ddDiv">
+                    <dl style="width: 20%;">
+                        <dt class="xs-1">购物指南</dt>
+                        <dd><a href="">下单及支付</a></dd>
+                        <dd><a href="">发票说明</a></dd>
+                        <dd><a href="">物流及配送</a></dd>
+                    </dl>
+                    <dl style="width: 20%;">
+                        <dt class="xs-2">售后服务</dt>
+                        <dd><a href="">售后政策</a></dd>
+                        <dd><a href="">返厂邮寄地址</a></dd>
+                        <dd><a href="">联系客服</a></dd>
+                        <dd><a href="">快递费报销</a></dd>
+                    </dl>
+                    <dl style="width: 20%;">
+                        <dt class="xs-3">技术支持</dt>
+                        <dd><a href="">常见问题</a></dd>
+                        <dd><a href="">使用教程视频</a></dd>
+                        <dd><a href="">APP下载</a></dd>
+                        <dd><a href="">电子说明书</dd>
+                    </dl>
+                    <dl style="width: 20%;">
+                        <dt class="xs-4">关注我们</dt>
+                        <dd><a href="">官方微博</a></dd>
+                        <dd><a href="">官方微信</a></dd>
+                    </dl>
+                    <dl style="width: 20%;">
+                        <dt class="xs-5">关于石头</dt>
+                        <dd><a href="">了解我们</a></dd>
+                        <dd><a href="">新闻资讯</a></dd>
+                        <dd><a href="">工作机会</a></dd>
+                        <dd><a href="">联系我们</a></dd>
+                    </dl>
+                </div>
+                <div class="foot-service">
+                    <div class="phone">400-900-1755</div>
+                    <div class="phone-time">周一至周日8:00-20:00</div>
+                    <div class="phone-cost">(仅收市话费)</div>
+                    <div class="contactAirlines">联系在线客服</div>
+                </div>
+            </div>
+            <div class="last">
+                <span style="padding:0 5px;border-right:1px solid #7e7f84">Copyright &nbsp;©&nbsp; Roborock. All Rights Reserved</span>
+                <span style="padding:0 5px"><a href="">京ICP备17032364号-1</a></span>
+                <span style="padding:0 5px;border-left:1px solid #7e7f84">
+                        <img src="images/publicSecurity.jpg" alt="国徽" style="vertical-align:middle;margin-right:5px;"><a href="">京公网安备 11010802024835号</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

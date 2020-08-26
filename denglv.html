@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/denglv.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>石头科技</title>
+</head>
+<body>
+    <div class="logo">
+        <div class="img-logo"><a href=""><img src="images/logo.png" alt=""></a></div>
+        <div class="text-logo"><a href="">石头科技</a></div>
+    </div>
+    <div class="nav">
+        <div class="text-center">
+            <div class="login">
+                <div class="label">账号登录</div>
+                <div class="form-group">
+                    <input type="text" class="input-item" name="username" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="input-item" name="password" placeholder="请输入密码">
+                </div>
+                <div id="alert" class="alert alert-danger" role="alert">...</div>
+                <button class="login-btn" id="btn1">登录</button>
+                <div class="other">
+                    <a href="http://localhost/kewosi/zhuce.html" class="other-a">注册石头账号</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="last">
+        <span style="padding:0 5px;border-right:1px solid #7e7f84">石头科技公司版权所有</span>
+        <span style="padding:0 5px"><a href="">京ICP备17032364号-1</a></span>
+        <span style="padding:0 5px;border-left:1px solid #7e7f84">
+                <img src="images/publicSecurity.jpg" alt="国徽" style="vertical-align:middle;margin-right:5px;"><a href="">京公网安备 11010802024835号</a>
+        </span>
+    </div>
+</body>
+<script type="module">
+    import { $_ajax } from "./ajax.js";
+    var oBtn = document.getElementById("btn1");
+    var aInputs = document.querySelectorAll(".form-group input");
+    var oAlert = document.getElementById("alert");
+    oBtn.onclick = function () {
+      $_ajax({
+        type: "post",
+        url: "denglv.php",
+        data: {
+          username: aInputs[0].value,
+          password: aInputs[1].value,
+        },
+      })
+        .then((res) => {
+          var obj = JSON.parse(res);
+
+          if(obj.code){
+            oAlert.className = 'alert alert-danger';
+          }else{
+            oAlert.className = 'alert alert-success';
+          }
+          oAlert.style.display = 'block';
+          oAlert.innerHTML = obj.msg;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+  </script>
+</html>

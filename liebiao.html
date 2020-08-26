@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/liebiao.css">
+    <title>配件_扫地机器人配件_扫地机器人滤网|滤芯|边刷|主刷-石头科技官网</title>
+    <script src="jquery-1.11.3.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#oneone').on({
+                mouseover : function(){
+                    $(this).attr('src','images/one.jpg');
+                },
+                mouseout : function(){
+                    $(this).attr('src','images/t7_pro_index-1.jpg');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function(){
+    
+          sc_num();
+          sc_msg();
+    
+    
+          $.ajax({
+            type: 'get',
+            url: "data.json",
+            success: function(arr){
+              let str = ``;
+              for(var i = 0; i < arr.length; i++){
+                str += ` <li class="goods_item">
+                  <div class="goods_pic">
+                      <img src="${arr[i].img}" alt="">
+                  </div>
+                  <div class="goods_title">
+                      <p>【京东超市】奥利奥软点小草莓0</p>
+                  </div>
+                  <div class="sc">
+                      <div id="${arr[i].id}" class="sc_btn">加入购物车</div>
+                  </div>
+              </li>`
+              }
+              $(".goods_box ul").html(str);
+            },
+            error: function(msg){
+              console.log(msg);
+            }
+          })
+    
+          /*
+            将数据存储到cookie中
+            1、cookie大小有限
+            2、cookie只能存储字符串
+            【注】做到只存储关键数据。[{id:id,num:1}]
+          */
+          $(".goods_box ul").on("click", '.sc_btn', function(){
+            var id = this.id; //点击按钮的这个商品的id
+            //1、判定是否是第一次添加
+            var first = $.cookie("goods") == null ? true : false;
+            if(first){
+              var arr = [{id:id,num:1}];
+              $.cookie("goods", JSON.stringify(arr), {
+                expires: 7
+              })
+            }else{
+              //不是第一次，判定之前是否添加过
+              var same = false; //假设之前没添加过
+              var cookieArr = JSON.parse($.cookie("goods"));
+              for(var i = 0; i < cookieArr.length; i++){
+                if(cookieArr[i].id === id){
+                  cookieArr[i].num++;
+                  same = true;
+                  break;
+                }
+              }
+    
+              if(!same){
+                var obj = {id: id, num: 1};
+                cookieArr.push(obj);
+              }
+    
+              $.cookie("goods", JSON.stringify(cookieArr), {
+                expires: 7
+              })
+            }
+            console.log($.cookie("goods"));
+            sc_num();
+            sc_msg();
+          })
+    
+          //通过事件委托给右侧购物车商品添加事件委托
+          $(".sc_right ul").on("click", ".delete_goodsBtn", function(){
+            //1、页面上删除
+            var id = $(this).closest("li").remove().attr("id");
+            //2、通过cookie删除
+            var cookieArr = JSON.parse($.cookie("goods"));
+            var index = cookieArr.findIndex(item => item.id == id);
+            //删除
+            cookieArr.splice(index, 1);
+            if(cookieArr.length){
+              $.cookie("goods", JSON.stringify(cookieArr), {
+                expires: 7
+              })
+            }else{
+              $.cookie("goods", null);
+            }
+            sc_num();
+          })
+    
+          //给+和-添加事件
+          $(".sc_right ul").on("click", '.sc_goodsNum button', function(){
+    
+            var id = $(this).closest("li").attr("id");
+            //从cookie中找出这个id的数据
+            var cookieArr = JSON.parse($.cookie("goods"));
+            var index = cookieArr.findIndex(item => item.id == id);
+    
+            if(this.innerHTML == "+"){
+              cookieArr[index].num++;
+            }else{
+              cookieArr[index].num == 1 ? alert("数量为1，不能减少") : cookieArr[index].num--;
+            }
+            //改变页面上的数量
+            $(this).siblings("span").html("商品数量：" + cookieArr[index].num);
+            //将改变完成数量的cookie存储回去
+            $.cookie("goods", JSON.stringify(cookieArr), {
+              expires: 7
+            })
+            sc_num();
+          })
+    
+    
+          //计算购物车中商品的数量
+          function sc_num(){
+            var cookieStr = $.cookie("goods");
+            var sum = 0;
+            if(cookieStr){
+              var cookieArr = JSON.parse(cookieStr);
+              for(var i = 0; i < cookieArr.length; i++){
+                sum += cookieArr[i].num;
+              }
+            }
+            $(".sc_right .sc_num").html(sum);
+          }
+    
+          //给右侧购物车添加移入移出效果
+          $(".sc_right").mouseenter(function(){
+            $(this).stop(true).animate({right: 0}, 500);
+          }).mouseleave(function(){
+            $(this).stop(true).animate({right: -270}, 500);
+          })
+    
+          //右侧购物上商品的加载
+          //1、购物车数据，都在cookie中id num
+          //2、商品信息在，服务器上
+          function sc_msg(){
+            var cookieStr = $.cookie("goods");
+            if(!cookieStr){
+              return;
+            }
+            //1、请求商品数据
+            $.ajax({
+              type: 'get',
+              url: 'data.json',
+              success: function(arr){
+                //在cookie中取出数据
+                var newArr = []
+                var cookieArr = JSON.parse(cookieStr);
+                for(var i = 0; i < cookieArr.length; i++){
+                  for(var j = 0; j < arr.length; j++){
+                    if(arr[j].id == cookieArr[i].id){
+                      arr[j].num = cookieArr[i].num;
+                      newArr.push(arr[j]);
+                      break;
+                    }
+                  }
+                }
+                // console.log(newArr);
+                let str = ``;
+                for(var i = 0; i < newArr.length; i++){
+                  str += `<li id="${newArr[i].id}">
+                        <div class="sc_goodsPic">
+                            <img src="${newArr[i].img}" alt="">
+                        </div>
+                        <div class="sc_goodsTitle">
+                            <p>这是商品曲奇饼干</p>
+                        </div>
+                        <div class="sc_goodsBtn">购买</div>
+                        <div class="delete_goodsBtn">删除</div>
+                        <div class="sc_goodsNum">
+                            <div>
+                                <button>+</button>
+                                <button>-</button>
+                                <span>商品数量：${newArr[i].num}</span>
+                            </div>
+                        </div>
+                    </li>`
+                }
+                $(".sc_right ul").html(str);
+              }
+            })
+          }
+        })
+      </script>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            <a href="https://mall.roborock.com/goods.php?id=55"><img style="width: 34px;" src="images/logo.png" alt="石头科技官网logo"></a>
+        </div>
+        <div class="div3">
+          <div class="left-list" id="list">
+            <a href="https://mall.roborock.com/category/36" id="a1"><span>智能清洁电器</span></a>
+            <div class="aaa">
+                <div class="title">
+                    <div class="nav-goodsItems">
+                        <div class="top-title">
+                            <ul class="cat_list">
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T7Pro</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;" class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T7Pro</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/T7PRO-nav.jpg" alt="石头扫地机器人T7Pro" title="石头扫地机器人T7Pro" class="T7">
+                                                <p class="cat-item-text">石头扫地机器人T7Pro</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头手持无线吸尘器H6</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头手持无线吸尘器H6</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/H6-nav.jpg" alt="石头手持无线吸尘器H6" title="石头手持无线吸尘器H6">
+                                                <p class="cat-item-text">石头手持无线吸尘器H6</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T7</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T7</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/T70-nav.jpg" alt="石头扫地机器人T7云石白" title="石头扫地机器人T7云石白">
+                                                <p class="cat-item-text">石头扫地机器人T7云石白</p>
+                                                <img src="images/T71-nav.jpg" alt="石头扫地机器人T7云石金" title="石头扫地机器人T7云石金">
+                                                <p class="cat-item-text">石头扫地机器人T7云石金</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人P5</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人P5</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/P50_nav_img.png" alt="石头扫地机器人P50珍珠白" title="石头扫地机器人P50珍珠白">
+                                                <p class="cat-item-text">石头扫地机器人P50珍珠白</p>
+                                                <img src="images/p55-nav.png" alt="石头扫地机器人P55曜石黑" title="石头扫地机器人P55曜石黑">
+                                                <p class="cat-item-text">石头扫地机器人P55曜石黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T6</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T6</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/tanos_pink.png" alt="石头扫地机器人T6云石金" title="石头扫地机器人T6云石金">
+                                                <p class="cat-item-text">石头扫地机器人T6云石金</p>
+                                                <img src="images/tanos_black.png" alt="石头扫地机器人T6曜石黑" title="石头扫地机器人T6曜石黑">
+                                                <p class="cat-item-text">石头扫地机器人T6曜石黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">石头扫地机器人T4</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">石头扫地机器人T4</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/t4-nav.png" alt="石头扫地机器人T4骑士黑" title="石头扫地机器人T4骑士黑">
+                                                <p class="cat-item-text">石头扫地机器人T4骑士黑</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">小瓦扫地机器人</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">小瓦扫地机器人</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/sapphire_nav.png" alt="小瓦扫地机器人E20规划版" title="小瓦扫地机器人E20规划版">
+                                                <p class="cat-item-text">小瓦扫地机器人E20规划版</p>
+                                                <img src="images/Sapphire_c_nav.png" alt="小瓦扫地机器人C10青春版" title="小瓦扫地机器人C10青春版">
+                                                <p class="cat-item-text">小瓦扫地机器人C10青春版</p>
+                                            </a>
+                                    </div>
+                                </li>
+                                <li class="cat_title">
+                                    <a href="">米家扫地机器人</a>
+                                    <img src="images/nav-arrow.png" alt="箭头" title="箭头" style="opacity: 1;"class="arrow">
+                                    <div class="cat-item">
+                                        <div class="child_cat_title">米家扫地机器人</div>
+                                            <a href="http://127.0.0.1:5500/xiangqing.html">
+                                                <img src="images/1_thumb_G_1510983679292.png" alt="米家扫地机器人" title="米家扫地机器人">
+                                                <p class="cat-item-text">米家扫地机器人</p>
+                                            </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-body">
+                            <div class="right-box">
+                                
+                            </div>
+                        </div>
+                        <div class="other-link"></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/compare.php"><span>产品选购指南</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/category/6"><span>配件</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/helps.php"><span>服务</span></a>
+          </div>
+          <div class="left-list">
+            <a href="https://mall.roborock.com/introduction.php"><span>关于石头</span></a>
+          </div>
+        </div>
+        <div class="div4">
+            <div class="box">
+                <div class="user">
+                    <img src="images/user.png" alt="">
+                        <div id="register">
+                            <a href=""><div class="enter">
+                                <span>登录</span>
+                            </div></a>
+                            <a href=""><div class="enroll">
+                                <span>注册</span>
+                            </div></a>
+                        </div>
+                </div>
+                <div class="cart">
+                    <a href=""><img src="images/cart.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="category-body">
+        <div class="goodsList-nav">
+            <div class="title" id="cat_id_36"  style="color:#eb0028">智能清洁电器</div>
+            <div class="title" id="cat_id_6">扫地机配件</div>
+        </div>
+        <div class="nav-img">
+            <a href=""><div class="nav-left">
+                <img src="images/t7_pro_index-1.jpg" id="oneone" alt="">
+                <img src="images/one.jpg"  id="onetwo" alt="">
+                <div class="one">
+                    <span>石头扫地机器人T7Pro</span>
+                </div>
+                <div class="two">
+                    <span>激光建图规划</span>
+                    <span>AI双目视觉避障</span>
+                    <span>2500Pa大吸力</span>
+                </div>
+                <div class="three">
+                    <span>AI双目视觉避障 聪明扫拖</span>
+                </div>
+                <div class="four">
+                    <span>￥</span><span>3499</span>
+                    <s><span>￥</span>3899</s>
+                </div>
+                <input type="button" class="five" value="加入购物车" onclick="">
+            </div></a>
+        </div>
+    </div>
+</body>
+</html>
